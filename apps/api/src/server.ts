@@ -7,6 +7,6 @@ try{
     await app.listen({port , host: "0.0.0.0"});
     app.log.info(`Server is running on port ${port}`);
 } catch (error) {
-    app.log.error(error);
+            app.log.error(error);
     process.exit(1);
 }

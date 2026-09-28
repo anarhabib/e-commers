@@ -1,22 +1,23 @@
 {
-    "name": "@flame-lenses/api",
-    "version": "0.1.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "tsx watch src/server.ts",
-        "build": "tsc",
-        "start": "node dist/server.js",
-        "postinstall": "prisma skills sync || exit 0"
-    },
-    "dependencies": {
-        "@prisma/client": "^6.19.3",
-        "fastify": "^5.12.5"
-    },
-    "devDependencies": {
-        "@types/node": "^22.20.4",
-        "prisma": "^6.19.3",
-        "tsx": "^4.23.15",
-        "typescript": "^7.0.2"
-    }
+  "name": "@flame-lenses/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --env-file=.env watch src/server.ts",
+    "build": "tsc",
+    "start": "node --env-file=.env dist/src/server.js",
+    "seed": "tsx --env-file=.env prisma/seed.ts",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "fastify": "^5.12.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "prisma": "^6.19.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
 }
