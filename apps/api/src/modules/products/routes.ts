@@ -8,8 +8,7 @@ export const productRoutes: FastifyPluginAsync = async (app) => {
     productController.getProductById,
   );
   app.delete<{ Params: { id: string } }>(
-    "/delete-product/:id",
+    "/products/:id",
     productController.deleteProduct,
   );
-  app.delete("/delete-all-products", productController.deleteAllProducts);
 };

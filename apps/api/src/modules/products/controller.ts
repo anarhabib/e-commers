@@ -10,9 +10,7 @@ export const productController = {
     return productService.listProducts();
   },
 
-  async getProductById(
-    request: FastifyRequest<{ Params: ProductIdParams }>,
-  ) {
+  async getProductById(request: FastifyRequest<{ Params: ProductIdParams }>) {
     const { id } = request.params;
     return productService.getProductById(id);
   },
@@ -23,11 +21,6 @@ export const productController = {
   ) {
     const { id } = request.params;
     await productService.deleteProduct(id);
-    return reply.send({ message: "Product deleted" });
-  },
-
-  async deleteAllProducts(_request: FastifyRequest, reply: FastifyReply) {
-    await productService.deleteAllProducts();
-    return reply.send({ message: "All products deleted" });
+    return reply.status(204).send();
   },
 };

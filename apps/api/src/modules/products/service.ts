@@ -1,19 +1,21 @@
 import { productRepository } from "./repository.js";
+import { NotFoundError } from "../../lib/errors.js";
 
 export const productService = {
   listProducts() {
     return productRepository.findAll();
   },
 
-  getProductById(id: string) {
-    return productRepository.findById(id);
+  async getProductById(id: string) {
+    const product = await productRepository.findById(id);
+    if (!product) {
+      throw new NotFoundError(`Product not found`);
+    }
+    return product;
   },
 
-  deleteProduct(id: string) {
-    return productRepository.deleteById(id);
-  },
-
-  deleteAllProducts() {
-    return productRepository.deleteAll();
+  async deleteProduct(id: string) {
+    await productService.getProductById(id);
+    await productRepository.deleteById(id);
   },
 };
