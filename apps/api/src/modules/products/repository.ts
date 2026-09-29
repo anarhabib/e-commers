@@ -13,7 +13,4 @@ export const productRepository = {
     return prisma.product.delete({ where: { id } });
   },
 
-  deleteAll() {
-    return prisma.product.deleteMany();
-  },
 };

@@ -3,6 +3,7 @@ import { PrismaClient } from "../src/generated/prisma/client.js";
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.product.deleteMany(); // Clear existing products
   const products = await prisma.product.createMany({
     data: [
       {
