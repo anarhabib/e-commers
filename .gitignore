@@ -6,3 +6,4 @@ dist/
 .cursor
 .agents
 .devin
+*.tsbuildinfo
