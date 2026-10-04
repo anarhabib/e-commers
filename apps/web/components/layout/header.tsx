@@ -6,32 +6,32 @@ import { MobileNav } from "./mobile-nav";
 import { SearchForm } from "./search-form";
 
 const iconLink =
-  "relative rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 hover:text-blue-600";
+  "relative rounded-sm p-2 text-secondary transition hover:bg-primary-soft hover:text-primary focus-visible:outline-2 focus-visible:outline-primary";
 
 // `cart` is a slot: the layout can pass a cart icon with a live count later.
 export function Header({ cart }: { cart?: ReactNode }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-secondary/10 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Left: menu button (phones) + logo */}
         <div className="flex items-center gap-2">
           <MobileNav />
           <Link
             href="/"
-            className="text-xl font-black tracking-tight text-slate-900"
+            className="font-headline text-3xl font-black tracking-tight text-secondary"
           >
-            Flame Lenses
+            Flame<span className="text-primary">Lenses</span>
           </Link>
         </div>
 
         {/* Center: navigation (desktop) */}
         <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex items-center gap-6 text-sm font-medium text-slate-600">
+          <ul className="flex items-center gap-6 font-mono text-xs font-bold uppercase tracking-wider text-muted">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="transition hover:text-blue-600"
+                  className="transition hover:text-primary"
                 >
                   {link.label}
                 </Link>
