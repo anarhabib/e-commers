@@ -1,6 +1,6 @@
 import { productRepository } from "./repository.js";
 import { NotFoundError } from "../../lib/errors.js";
-import { CreateProductInput } from "./schema.js";
+import { CreateProductInput, UpdateProductInput } from "./schema.js";
 
 export const productService = {
   listProducts() {
@@ -22,5 +22,10 @@ export const productService = {
 
   async createProduct(data: CreateProductInput) {
     return await productRepository.create(data);
-  }
+  },
+
+  async updateProduct(id: string, data: UpdateProductInput) {
+    await productService.getProductById(id);
+    return await productRepository.update(id, data);
+  },
 };

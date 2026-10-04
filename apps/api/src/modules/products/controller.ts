@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { productService } from "./service.js";
-import { createProductSchema } from "./schema.js";
+import { createProductSchema, updateProductSchema } from "./schema.js";
 
 type ProductIdParams = {
   id: string;
@@ -30,4 +30,14 @@ export const productController = {
     const product = await productService.createProduct(data);
     return reply.status(201).send(product);
   },
+
+  async updateProduct(
+    request: FastifyRequest<{ Params: ProductIdParams }>,
+    reply: FastifyReply,
+  ) {
+    const { id } = request.params;
+    const data = updateProductSchema.parse(request.body);
+    const product = await productService.updateProduct(id, data);
+    return reply.send(product);
+  }
 };
