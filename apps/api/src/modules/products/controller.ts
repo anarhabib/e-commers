@@ -1,16 +1,17 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { productService } from "./service.js";
+import { createProductSchema } from "./schema.js";
 
 type ProductIdParams = {
   id: string;
 };
 
 export const productController = {
-  async listProducts() {
+  listProducts() {
     return productService.listProducts();
   },
 
-  async getProductById(request: FastifyRequest<{ Params: ProductIdParams }>) {
+  getProductById(request: FastifyRequest<{ Params: ProductIdParams }>) {
     const { id } = request.params;
     return productService.getProductById(id);
   },
@@ -22,5 +23,11 @@ export const productController = {
     const { id } = request.params;
     await productService.deleteProduct(id);
     return reply.status(204).send();
+  },
+
+  async createProduct(request: FastifyRequest, reply: FastifyReply) {
+    const data = createProductSchema.parse(request.body);
+    const product = await productService.createProduct(data);
+    return reply.status(201).send(product);
   },
 };

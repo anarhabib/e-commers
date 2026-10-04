@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma.js";
+import type { CreateProductInput } from "./schema.js";
 
 export const productRepository = {
   findAll() {
@@ -13,4 +14,7 @@ export const productRepository = {
     return prisma.product.delete({ where: { id } });
   },
 
+  create(data: CreateProductInput) {
+    return prisma.product.create({ data });
+  },
 };
