@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma.js";
-import type { CreateProductInput } from "./schema.js";
+import type { CreateProductInput, UpdateProductInput } from "./schema.js";
 
 export const productRepository = {
   findAll() {
@@ -17,4 +17,8 @@ export const productRepository = {
   create(data: CreateProductInput) {
     return prisma.product.create({ data });
   },
+
+  update(id: string, data: UpdateProductInput) {
+    return prisma.product.update({ where: { id }, data });
+  }
 };

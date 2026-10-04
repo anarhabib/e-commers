@@ -12,4 +12,5 @@ export const productRoutes: FastifyPluginAsync = async (app) => {
     productController.deleteProduct,
   );
   app.post("/products", productController.createProduct);
+  app.patch("/products/:id", productController.updateProduct);
 };
