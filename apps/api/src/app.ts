@@ -1,6 +1,5 @@
 import Fastify from "fastify";
 import { prisma } from "./lib/prisma.js";
-import { healthRoutes } from "./modules/health/routes.js";
 import { productRoutes } from "./modules/products/routes.js";
 import { NotFoundError } from "./lib/errors.js";
 import { ZodError } from "zod";
@@ -39,7 +38,6 @@ export function buildApp() {
     request.log.error(error);
     return reply.status(500).send({ error: "Internal server error" });
   });
-  app.register(healthRoutes);
   app.register(productRoutes);
   app.addHook("onClose", async () => prisma.$disconnect());
 

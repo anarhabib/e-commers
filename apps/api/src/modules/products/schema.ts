@@ -58,5 +58,16 @@ export const updateProductSchema = z
     message: "Send at least one field to update",
   });
 
+export const listProductsQuerySchema = z.object({
+  category: z.enum(productCategories).optional(),
+  make: z.string().trim().min(1).optional(),
+  model: z.string().trim().min(1).optional(),
+  year: z.coerce.number().int().optional(),
+  search: z.string().trim().min(1).optional(),
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export type ListProductsQuery = z.infer<typeof listProductsQuerySchema>;
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
