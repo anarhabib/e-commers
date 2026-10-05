@@ -1,10 +1,18 @@
 import { productRepository } from "./repository.js";
 import { NotFoundError } from "../../lib/errors.js";
 import { CreateProductInput, UpdateProductInput } from "./schema.js";
+import type { ListProductsQuery } from "./schema.js";
 
 export const productService = {
-  listProducts() {
-    return productRepository.findAll();
+  async listProducts(query: ListProductsQuery) {
+    const [products, total] = await productRepository.findMany(query);
+    return {
+      products,
+      page: query.page,
+      limit: query.limit,
+      total,
+      totalPages: Math.ceil(total / query.limit),
+    };
   },
 
   async getProductById(id: string) {
