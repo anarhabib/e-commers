@@ -6,7 +6,11 @@ export default async function ProductsPage() {
 
   return (
     <main className="mx-auto max-w-6xl p-6">
-      <h1 className="mb-6 text-3xl font-bold">Products</h1>
+      <h1 className=" text-3xl font-bold">Lighting Assemblies</h1>
+      <p className="mb-6 text-muted-foreground">
+        Discover our wide range of high-quality lighting assemblies for all your
+        needs.
+      </p>
       <ProductGrid products={products} />
     </main>
   );
