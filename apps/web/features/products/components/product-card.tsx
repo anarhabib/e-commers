@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="border-t border-gray-200 px-3 py-2.5">
         {/* Brand */}
         <p className="font-mono text-[8px] font-medium uppercase tracking-[0.08em] text-muted">
-          {product.model}
+          {product.make}
         </p>
 
         {/* Name */}
