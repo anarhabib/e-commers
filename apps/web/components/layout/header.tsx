@@ -6,7 +6,7 @@ import { MobileNav } from "./mobile-nav";
 import { SearchForm } from "./search-form";
 
 const iconLink =
-  "relative rounded-sm p-2 text-secondary transition hover:bg-primary-soft hover:text-primary focus-visible:outline-2 focus-visible:outline-primary";
+  "relative rounded-lg p-2 text-secondary transition hover:bg-primary-soft hover:text-primary hover:rounded-lg focus-visible:outline-2 focus-visible:outline-primary";
 
 // `cart` is a slot: the layout can pass a cart icon with a live count later.
 export function Header({ cart }: { cart?: ReactNode }) {
