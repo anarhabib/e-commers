@@ -1,7 +1,7 @@
 import { productRepository } from "./repository.js";
 import { NotFoundError } from "../../lib/errors.js";
 import { CreateProductInput, UpdateProductInput } from "./schema.js";
-import type { ListProductsQuery } from "./schema.js";
+import type { FacetsQuery, ListProductsQuery } from "./schema.js";
 
 export const productService = {
   async listProducts(query: ListProductsQuery) {
@@ -13,6 +13,10 @@ export const productService = {
       total,
       totalPages: Math.ceil(total / query.limit),
     };
+  },
+
+  getFacets(query: FacetsQuery) {
+    return productRepository.getFacets(query);
   },
 
   async getProductById(id: string) {
