@@ -58,8 +58,14 @@ export const updateProductSchema = z
     message: "Send at least one field to update",
   });
 
+const toArray = (value: unknown) =>
+  value === undefined ? undefined : Array.isArray(value) ? value : [value];
+
 export const listProductsQuerySchema = z.object({
-  category: z.enum(productCategories).optional(),
+  category: z.preprocess(
+    toArray,
+    z.array(z.enum(productCategories)).optional(),
+  ),
   make: z.string().trim().min(1).optional(),
   model: z.string().trim().min(1).optional(),
   year: z.coerce.number().int().optional(),
@@ -68,6 +74,14 @@ export const listProductsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
 });
 
+export const facetsQuerySchema = listProductsQuerySchema.pick({
+  make: true,
+  model: true,
+  year: true,
+  search: true,
+});
+
 export type ListProductsQuery = z.infer<typeof listProductsQuerySchema>;
+export type FacetsQuery = z.infer<typeof facetsQuerySchema>;
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;

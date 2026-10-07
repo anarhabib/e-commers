@@ -2,6 +2,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { productService } from "./service.js";
 import {
   createProductSchema,
+  facetsQuerySchema,
   listProductsQuerySchema,
   updateProductSchema,
 } from "./schema.js";
@@ -14,6 +15,11 @@ export const productController = {
   async listProducts(request: FastifyRequest) {
     const query = listProductsQuerySchema.parse(request.query);
     return productService.listProducts(query);
+  },
+
+  async getFacets(request: FastifyRequest) {
+    const query = facetsQuerySchema.parse(request.query);
+    return productService.getFacets(query);
   },
 
   getProductById(request: FastifyRequest<{ Params: ProductIdParams }>) {

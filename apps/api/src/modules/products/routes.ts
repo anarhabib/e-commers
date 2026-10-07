@@ -3,6 +3,7 @@ import { productController } from "./controller.js";
 
 export const productRoutes: FastifyPluginAsync = async (app) => {
   app.get("/products", productController.listProducts);
+  app.get("/products/filters", productController.getFacets);
   app.get<{ Params: { id: string } }>(
     "/products/:id",
     productController.getProductById,
