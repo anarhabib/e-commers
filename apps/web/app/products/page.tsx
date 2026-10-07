@@ -1,17 +1,45 @@
-import { getProducts } from "@/features/products/api";
+import {
+  getProducts,
+  getProductFilters,
+  type SearchParams,
+} from "@/features/products/api";
 import { ProductGrid } from "@/features/products/components/product-grid";
+import { ProductFilters } from "@/features/products/components/product-filters";
+import { SlidersHorizontal } from "lucide-react";
 
-export default async function ProductsPage() {
-  const { products } = await getProducts();
+type Props = {
+  searchParams: Promise<SearchParams>;
+};
 
+export default async function ProductsPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const [list, facets] = await Promise.all([
+    getProducts(params),
+    getProductFilters(params),
+  ]);
   return (
-    <main className="mx-auto max-w-6xl p-6">
-      <h1 className=" text-3xl font-bold">Replacement Lenses</h1>
-      <p className="mb-6 text-muted-foreground">
-        Discover our wide range of high-quality replacement lenses for all your
-        needs.
-      </p>
-      <ProductGrid products={products} />
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+        <details className="rounded-sm lg:hidden">
+          <summary className="flex items-center gap-1 cursor-pointer font-mono text-xs font-bold uppercase">
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+          </summary>
+          <div className="mt-4">
+            <ProductFilters facets={facets} />
+          </div>
+        </details>
+        <div className="hidden lg:block">
+          <ProductFilters facets={facets} />
+        </div>
+
+        <section>
+          <p className="mb-4 font-mono text-xs text-muted">
+            {list.total} products
+          </p>
+          <ProductGrid products={list.products} />
+        </section>
+      </div>
     </main>
   );
 }
