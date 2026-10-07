@@ -18,3 +18,16 @@ export type Product = {
   color: string | null;
   side: string | null;
 };
+
+export type VehicleOption = {
+  make: string;
+  model: string;
+  yearFrom: number | null;
+  yearTo: number | null;
+};
+
+export type FacetOptions = { value: string; count: number };
+export type ProductFacets = {
+  categories: FacetOptions[];
+  vehicles: VehicleOption[];
+};

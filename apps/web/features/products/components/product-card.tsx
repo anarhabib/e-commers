@@ -34,9 +34,9 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="border-t border-gray-200 px-3 py-2.5">
-        {/* Brand */}
+        {/* Category */}
         <p className="font-mono text-[8px] font-medium uppercase tracking-[0.08em] text-muted">
-          {product.make}
+          {product.category}
         </p>
 
         {/* Name */}
