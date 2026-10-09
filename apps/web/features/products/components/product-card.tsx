@@ -1,25 +1,18 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button, buttonStyles } from "@/components/ui/button";
 import type { Product } from "../types";
 import { formatPrice } from "../utils";
 import { ShoppingCartPlus as ShoppingCartPlusIcon } from "lucide-react";
+import Link from "next/link";
 
 export function ProductCard({ product }: { product: Product }) {
+  const href = `/products/${product.slug}`;
   return (
-    // <li className="rounded-lg border p-4">
-    //   <h2 className="font-semibold">{product.name}</h2>
-    //   <p className="text-sm text-gray-600">
-    //     {product.make} {product.model} {product.yearFrom}-{product.yearTo}
-    //   </p>
-    //   <p className="mt-2 text-lg font-bold">
-    //     {formatPrice(product.priceCents)}
-    //   </p>
-    //   <p className="text-sm">
-    //     {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
-    //   </p>
-    // </li>
-    <article className="w-full max-w-220 overflow-hidden rounded-md border border-gray-300 bg-white">
-      <div className="relative flex aspect-1.5/1 items-center justify-center bg-primary-soft">
+    <article className="w-full overflow-hidden rounded-md border border-gray-300 bg-white">
+      <Link
+        href={href}
+        className="relative flex aspect-3/2 items-center justify-center bg-primary-soft"
+      >
         <Image
           src={
             product.imageUrl ||
@@ -28,20 +21,22 @@ export function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           fill
           unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover"
         />
-      </div>
+      </Link>
 
       <div className="border-t border-gray-200 px-3 py-2.5">
         {/* Category */}
-        <p className="font-mono text-[8px] font-medium uppercase tracking-[0.08em] text-muted">
+        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-muted">
           {product.category}
         </p>
 
         {/* Name */}
-        <h3 className="mt-1 min-h-34p text-[12px] font-semibold leading-[1.35] text-secondary">
-          {product.name}
+        <h3 className="py-2 font-semibold leading-snug text-secondary">
+          <Link href={href} className="hover:text-primary">
+            {product.name}
+          </Link>
         </h3>
 
         {/* Compatibility */}
@@ -50,7 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
             ✓
           </span>
 
-          <p className="text-[9px] leading-[1.35] text-muted">
+          <p className="text-[10px] leading-[1.35] text-muted">
             {product.make} {product.model} {product.yearFrom}-{product.yearTo}
           </p>
         </div>
@@ -60,7 +55,12 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
         {/* Actions */}
         <div className="mt-2 flex justify-end gap-1.5">
-          <Button variant="outlined">Details</Button>
+          <Link
+            href={href}
+            className={buttonStyles("outlined", "max-sm:hidden")}
+          >
+            Details
+          </Link>
 
           <Button className="flex-1" variant="primary">
             <ShoppingCartPlusIcon className="h-4 w-4" />
