@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Car } from "lucide-react";
+import { Car, X } from "lucide-react";
 import type { ProductFacets } from "../types";
 import { formatCategory } from "../utils";
 import { VehicleSelector } from "./vehicle-selector";
@@ -36,6 +36,14 @@ export function ProductFilters({ facets }: { facets: ProductFacets }) {
     router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
 
+  function clearVehicle() {
+    const params = new URLSearchParams(searchParams.toString());
+    ["make", "model", "year"].forEach((key) => params.delete(key));
+    params.delete("page");
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
+
   return (
     <aside className="space-y-6">
       <section className="rounded-sm border border-secondary/10 bg-white p-4">
@@ -44,9 +52,18 @@ export function ProductFilters({ facets }: { facets: ProductFacets }) {
           <Car className="h-4 w-4" />
         </p>
         {vehicle ? (
-          <p className="mt-1 flex items-center gap-2 font-bold text-secondary">
-            {vehicle}
-          </p>
+          <div className="mt-1 flex items-center justify-between gap-2">
+            <p className="flex items-center gap-2 font-bold text-secondary">
+              {vehicle}
+            </p>
+            <button
+              type="button"
+              onClick={clearVehicle}
+              className="text-muted hover:text-primary"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
         ) : (
           <p className="mt-1 text-sm text-muted">No vehicle selected</p>
         )}
@@ -54,7 +71,11 @@ export function ProductFilters({ facets }: { facets: ProductFacets }) {
           <summary className="cursor-pointer font-mono text-xs text-primary hover:underline">
             {vehicle ? "Change vehicle" : "Select vehicle"}
           </summary>
-          <VehicleSelector vehicles={facets.vehicles} className="mt-3" />
+          <VehicleSelector
+            key={vehicle}
+            vehicles={facets.vehicles}
+            className="mt-3"
+          />
         </details>
       </section>
 

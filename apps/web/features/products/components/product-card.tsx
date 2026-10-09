@@ -8,7 +8,7 @@ import Link from "next/link";
 export function ProductCard({ product }: { product: Product }) {
   const href = `/products/${product.slug}`;
   return (
-    <article className="w-full overflow-hidden rounded-md border border-gray-300 bg-white">
+    <article className="flex w-full flex-col overflow-hidden rounded-md border border-gray-300 bg-white">
       <Link
         href={href}
         className="relative flex aspect-3/2 items-center justify-center bg-primary-soft"
@@ -26,14 +26,14 @@ export function ProductCard({ product }: { product: Product }) {
         />
       </Link>
 
-      <div className="border-t border-gray-200 px-3 py-2.5">
+      <div className="flex flex-1 flex-col border-t border-gray-200 px-3 py-2.5">
         {/* Category */}
         <p className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-muted">
           {product.category}
         </p>
 
         {/* Name */}
-        <h3 className="py-2 font-semibold leading-snug text-secondary">
+        <h3 className="min-h-14 py-2 font-semibold leading-snug text-secondary">
           <Link href={href} className="hover:text-primary">
             {product.name}
           </Link>
@@ -49,23 +49,25 @@ export function ProductCard({ product }: { product: Product }) {
             {product.make} {product.model} {product.yearFrom}-{product.yearTo}
           </p>
         </div>
-        {/* Price */}
-        <p className="mt-3 text-[16px] font-bold tracking-tight text-secondary">
-          {formatPrice(product.priceCents)}
-        </p>
-        {/* Actions */}
-        <div className="mt-2 flex justify-end gap-1.5">
-          <Link
-            href={href}
-            className={buttonStyles("outlined", "max-sm:hidden")}
-          >
-            Details
-          </Link>
+        <div className="mt-auto">
+          {/* Price */}
+          <p className="mt-3 text-[16px] font-bold tracking-tight text-secondary">
+            {formatPrice(product.priceCents)}
+          </p>
+          {/* Actions */}
+          <div className="mt-2 flex justify-end gap-1.5">
+            <Link
+              href={href}
+              className={buttonStyles("outlined", "max-sm:hidden")}
+            >
+              Details
+            </Link>
 
-          <Button className="flex-1" variant="primary">
-            <ShoppingCartPlusIcon className="h-4 w-4" />
-            Add to Cart
-          </Button>
+            <Button className="flex-1" variant="primary">
+              <ShoppingCartPlusIcon className="h-4 w-4" />
+              Add to Cart
+            </Button>
+          </div>
         </div>
       </div>
     </article>
