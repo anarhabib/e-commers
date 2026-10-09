@@ -38,7 +38,7 @@ export function ProductFilters({ facets }: { facets: ProductFacets }) {
 
   return (
     <aside className="space-y-6">
-      <section className="rounded-sm border border-secondary/10 bg-white p-4 mt-8">
+      <section className="rounded-sm border border-secondary/10 bg-white p-4">
         <p className="flex justify-between font-mono text-[10px] font-bold uppercase tracking-wider text-muted">
           Active vehicle
           <Car className="h-4 w-4" />

@@ -6,6 +6,7 @@ import {
 import { ProductGrid } from "@/features/products/components/product-grid";
 import { ProductFilters } from "@/features/products/components/product-filters";
 import { SlidersHorizontal } from "lucide-react";
+import { Pagination } from "@/features/products/components/pagination";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -29,7 +30,7 @@ export default async function ProductsPage({ searchParams }: Props) {
             <ProductFilters facets={facets} />
           </div>
         </details>
-        <div className="hidden lg:block">
+        <div className="hidden pt-8 lg:block">
           <ProductFilters facets={facets} />
         </div>
 
@@ -38,6 +39,11 @@ export default async function ProductsPage({ searchParams }: Props) {
             {list.total} products
           </p>
           <ProductGrid products={list.products} />
+          <Pagination
+            page={list.page}
+            totalPages={list.totalPages}
+            searchParams={params}
+          />
         </section>
       </div>
     </main>
